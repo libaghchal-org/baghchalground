@@ -18,12 +18,14 @@
     }
   },
   "devDependencies": {
+    "@types/node": "^22.13.0",
     "@typescript-eslint/eslint-plugin": "^7.7.0",
     "@typescript-eslint/parser": "^7.7.0",
     "esbuild": "^0.24.0",
     "eslint": "^8.57.0",
     "prettier": "^3.2.5",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vite": "^6.0.11"
   },
   "scripts": {
     "prepare": "$npm_execpath run compile",
@@ -32,7 +34,10 @@
     "format": "prettier --write .",
     "check-format": "prettier --check .",
     "bundle": "esbuild src/baghchalground.ts --bundle --format=esm --outfile=dist/baghchalground.min.js --minify",
-    "dist": "$npm_execpath run compile && $npm_execpath run bundle"
+    "dist": "$npm_execpath run compile && $npm_execpath run bundle",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "files": [
     "/dist/*.js",
