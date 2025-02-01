@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Chessground Demo</title>
+    <title>Baghchalground Demo</title>
 
-    <link rel="stylesheet" type="text/css" href="assets/chessground.base.css" />
-    <link rel="stylesheet" type="text/css" href="assets/chessground.brown.css" />
-    <link rel="stylesheet" type="text/css" href="assets/chessground.cburnett.css" />
+    <link rel="stylesheet" type="text/css" href="assets/baghchalground.base.css" />
+    <link rel="stylesheet" type="text/css" href="assets/baghchalground.brown.css" />
+    <link rel="stylesheet" type="text/css" href="assets/baghchalground.cburnett.css" />
     <style>
       body {
         display: flex;
@@ -18,7 +18,7 @@
         margin: 10px;
       }
 
-      .chessground {
+      .baghchalground {
         width: 500px;
         height: 500px;
       }
@@ -29,13 +29,13 @@
     </style>
 
     <script type="module">
-      import { Chessground } from './dist/chessground.js';
+      import { Baghchalground } from './dist/baghchalground.js';
 
-      Chessground(document.getElementById('board-1'), {});
-      Chessground(document.getElementById('board-2'), {
+      Baghchalground(document.getElementById('board-1'), {});
+      Baghchalground(document.getElementById('board-2'), {
         fen: 'r2q2k1/1p6/p2p4/2pN1rp1/N1Pb2Q1/8/PP1B4/R6K b - - 2 25',
       });
-      Chessground(document.getElementById('board-3'), {
+      Baghchalground(document.getElementById('board-3'), {
         drawable: {
           autoShapes: [
             {
@@ -83,12 +83,12 @@
           ],
         },
       });
-      Chessground(document.getElementById('board-4'), {
+      Baghchalground(document.getElementById('board-4'), {
         orientation: 'black',
         coordinatesOnSquares: true,
         ranksPosition: 'left',
       });
-      Chessground(document.getElementById('board-5'), {
+      Baghchalground(document.getElementById('board-5'), {
         orientation: 'white',
         coordinatesOnSquares: true,
       });
@@ -97,23 +97,23 @@
   <body>
     <div>
       basic board, default config
-      <div class="chessground" id="board-1"></div>
+      <div class="baghchalground" id="board-1"></div>
     </div>
     <div>
       board with a fen
-      <div class="chessground" id="board-2"></div>
+      <div class="baghchalground" id="board-2"></div>
     </div>
     <div>
       board with fixed arrows + labels
-      <div class="chessground" id="board-3"></div>
+      <div class="baghchalground" id="board-3"></div>
     </div>
     <div>
       board with coordinates on-square, ranks position left
-      <div class="chessground" id="board-4"></div>
+      <div class="baghchalground" id="board-4"></div>
     </div>
     <div>
       board with coordinates on-square
-      <div class="chessground" id="board-5"></div>
+      <div class="baghchalground" id="board-5"></div>
     </div>
   </body>
 </html>
