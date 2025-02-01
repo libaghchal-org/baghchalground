@@ -4,7 +4,7 @@ import { colors, files, ranks, Elements } from './types.js';
 import { createElement as createSVG, setAttributes, createDefs } from './svg.js';
 
 export function renderWrap(element: HTMLElement, s: HeadlessState): Elements {
-  // .cg-wrap (element passed to Chessground)
+  // .cg-wrap (element passed to Baghchalground)
   //   cg-container
   //     cg-board
   //     svg.cg-shapes
@@ -21,7 +21,7 @@ export function renderWrap(element: HTMLElement, s: HeadlessState): Elements {
 
   // ensure the cg-wrap class is set
   // so bounds calculation can use the CSS width/height values
-  // add that class yourself to the element before calling chessground
+  // add that class yourself to the element before calling baghchalground
   // for a slight performance improvement! (avoids recomputing style)
   element.classList.add('cg-wrap');
 

@@ -10,10 +10,10 @@ import * as svg from './svg.js';
 import * as util from './util.js';
 
 export function initModule({ el, config }: { el: HTMLElement; config?: Config }): Api {
-  return Chessground(el, config);
+  return Baghchalground(el, config);
 }
 
-export function Chessground(element: HTMLElement, config?: Config): Api {
+export function Baghchalground(element: HTMLElement, config?: Config): Api {
   const maybeState: State | HeadlessState = defaults();
 
   configure(maybeState, config || {});

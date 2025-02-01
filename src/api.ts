@@ -13,7 +13,7 @@ export interface Api {
   // board will be animated accordingly, if animations are enabled.
   set(config: Config): void;
 
-  // read chessground state; write at your own risks.
+  // read baghchalground state; write at your own risks.
   state: State;
 
   // get the position as a FEN string (only contains pieces, no flags)
@@ -53,7 +53,7 @@ export interface Api {
   // cancel current move and prevent further ones
   stop(): void;
 
-  // make squares explode (atomic chess)
+  // make squares explode (atomic baghchal)
   explode(keys: cg.Key[]): void;
 
   // programmatically draw user shapes

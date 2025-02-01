@@ -5,7 +5,7 @@ import { DrawShape, DrawBrushes } from './draw.js';
 import * as cg from './types.js';
 
 export interface Config {
-  fen?: cg.FEN; // chess position in Forsyth notation
+  fen?: cg.FEN; // baghchal position in Forsyth notation
   orientation?: cg.Color; // board orientation. white | black
   turnColor?: cg.Color; // turn to play. white | black
   check?: cg.Color | boolean; // true for current color, false to unset
@@ -15,7 +15,7 @@ export interface Config {
   coordinatesOnSquares?: boolean; // include coords attributes on every square
   autoCastle?: boolean; // immediately complete the castle by moving the rook after king move
   viewOnly?: boolean; // don't bind events: the user will never be able to move pieces around
-  disableContextMenu?: boolean; // because who needs a context menu on a chessboard
+  disableContextMenu?: boolean; // because who needs a context menu on a baghchalboard
   addPieceZIndex?: boolean; // adds z-index values to pieces (for 3D)
   addDimensionsCssVarsTo?: HTMLElement; // add ---cg-width and ---cg-height CSS vars containing the board's dimensions to this element
   blockTouchScroll?: boolean; // block scrolling via touch dragging on the board, e.g. for coordinate training
@@ -62,7 +62,7 @@ export interface Config {
   draggable?: {
     enabled?: boolean; // allow moves & premoves to use drag'n drop
     distance?: number; // minimum distance to initiate a drag; in pixels
-    autoDistance?: boolean; // lets chessground set distance to zero when user drags pieces
+    autoDistance?: boolean; // lets baghchalground set distance to zero when user drags pieces
     showGhost?: boolean; // show ghost of piece being dragged
     deleteOnDropOff?: boolean; // delete a piece when it is dropped off the board
   };

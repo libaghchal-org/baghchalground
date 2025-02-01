@@ -35,8 +35,8 @@ export function bindDocument(s: State, onResize: () => void): cg.Unbind {
   const unbinds: cg.Unbind[] = [];
 
   // Old versions of Edge and Safari do not support ResizeObserver. Send
-  // chessground.resize if a user action has changed the bounds of the board.
-  if (!('ResizeObserver' in window)) unbinds.push(unbindable(document.body, 'chessground.resize', onResize));
+  // baghchalground.resize if a user action has changed the bounds of the board.
+  if (!('ResizeObserver' in window)) unbinds.push(unbindable(document.body, 'baghchalground.resize', onResize));
 
   if (!s.viewOnly) {
     const onmove = dragOrDraw(s, drag.move, draw.move);

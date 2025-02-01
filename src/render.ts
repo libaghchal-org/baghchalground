@@ -7,7 +7,7 @@ import * as cg from './types.js';
 
 type PieceName = string; // `$color $role`
 
-// ported from https://github.com/lichess-org/lichobile/blob/master/src/chessground/render.ts
+// ported from https://github.com/libaghchal-org/lichobile/blob/master/src/baghchalground/render.ts
 // in case of bugs, blame @veloce
 export function render(s: State): void {
   const asWhite: boolean = whitePov(s),

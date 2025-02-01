@@ -17,7 +17,7 @@ export interface HeadlessState {
   ranksPosition: cg.RanksPosition; // position ranks on either side. left | right
   autoCastle: boolean; // immediately complete the castle by moving the rook after king move
   viewOnly: boolean; // don't bind events: the user will never be able to move pieces around
-  disableContextMenu: boolean; // because who needs a context menu on a chessboard
+  disableContextMenu: boolean; // because who needs a context menu on a baghchalboard
   addPieceZIndex: boolean; // adds z-index values to pieces (for 3D)
   addDimensionsCssVarsTo?: HTMLElement; // add ---cg-width and ---cg-height CSS vars containing the board's dimensions to this element
   blockTouchScroll: boolean; // block scrolling via touch dragging on the board, e.g. for coordinate training
@@ -71,7 +71,7 @@ export interface HeadlessState {
   draggable: {
     enabled: boolean; // allow moves & premoves to use drag'n drop
     distance: number; // minimum distance to initiate a drag; in pixels
-    autoDistance: boolean; // lets chessground set distance to zero when user drags pieces
+    autoDistance: boolean; // lets baghchalground set distance to zero when user drags pieces
     showGhost: boolean; // show ghost of piece being dragged
     deleteOnDropOff: boolean; // delete a piece when it is dropped off the board
     current?: DragCurrent;
