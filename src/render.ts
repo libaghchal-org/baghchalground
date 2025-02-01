@@ -3,6 +3,7 @@ import { key2pos, createEl, posToTranslate as posToTranslateFromBounds, translat
 import { whitePov } from './board.js';
 import { AnimCurrent, AnimVectors, AnimVector, AnimFadings } from './anim.js';
 import { DragCurrent } from './drag.js';
+import { renderBoardLines, renderResizedBoardLines } from './boardLines.js';
 import * as cg from './types.js';
 
 type PieceName = string; // `$color $role`
@@ -96,6 +97,8 @@ export function render(s: State): void {
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
 
+  renderBoardLines(s);
+
   // walk over all squares in current set, apply dom changes to moved squares
   // or append new squares
   for (const [sk, className] of squares) {
@@ -178,6 +181,7 @@ export function renderResized(s: State): void {
     }
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
+  renderResizedBoardLines(s);
 }
 
 export function updateBounds(s: State): void {

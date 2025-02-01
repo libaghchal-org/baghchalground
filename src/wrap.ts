@@ -1,6 +1,6 @@
 import { HeadlessState } from './state.js';
 import { setVisible, createEl } from './util.js';
-import { colors, files, ranks, Elements } from './types.js';
+import { sides, files, ranks, Elements } from './types.js';
 import { createElement as createSVG, setAttributes, createDefs } from './svg.js';
 
 export function renderWrap(element: HTMLElement, s: HeadlessState): Elements {
@@ -25,7 +25,7 @@ export function renderWrap(element: HTMLElement, s: HeadlessState): Elements {
   // for a slight performance improvement! (avoids recomputing style)
   element.classList.add('cg-wrap');
 
-  for (const c of colors) element.classList.toggle('orientation-' + c, s.orientation === c);
+  for (const c of sides) element.classList.toggle('orientation-' + c, s.orientation === c);
   element.classList.toggle('manipulable', !s.viewOnly);
 
   const container = createEl('cg-container');
@@ -41,11 +41,15 @@ export function renderWrap(element: HTMLElement, s: HeadlessState): Elements {
   if (s.drawable.visible) {
     svg = setAttributes(createSVG('svg'), {
       class: 'cg-shapes',
-      viewBox: '-4 -4 8 8',
+      viewBox: '-2.5 -2.5 5 5',
       preserveAspectRatio: 'xMidYMid slice',
     });
     svg.appendChild(createDefs());
     svg.appendChild(createSVG('g'));
+
+    let lineGroup = createSVG('g');
+    setAttributes(lineGroup, { class: 'baghchal-lines' });
+    svg.appendChild(lineGroup);
 
     customSvg = setAttributes(createSVG('svg'), {
       class: 'cg-custom-svgs',

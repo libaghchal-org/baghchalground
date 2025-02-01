@@ -5,11 +5,36 @@ import { Drawable } from './draw.js';
 import { timer } from './util.js';
 import * as cg from './types.js';
 
+const BAGHCHAL_LINES: cg.BoardLine[] = [
+  // Horizontal lines
+  { start: 'a1', end: 'e1', diagonal: false },
+  { start: 'a2', end: 'e2', diagonal: false },
+  { start: 'a3', end: 'e3', diagonal: false },
+  { start: 'a4', end: 'e4', diagonal: false },
+  { start: 'a5', end: 'e5', diagonal: false },
+
+  // Vertical lines
+  { start: 'a1', end: 'a5', diagonal: false },
+  { start: 'b1', end: 'b5', diagonal: false },
+  { start: 'c1', end: 'c5', diagonal: false },
+  { start: 'd1', end: 'd5', diagonal: false },
+  { start: 'e1', end: 'e5', diagonal: false },
+
+  // Main diagonal lines
+  { start: 'a1', end: 'e5', diagonal: true },
+  { start: 'a5', end: 'e1', diagonal: true },
+
+  // Middle diagonal lines
+  { start: 'b2', end: 'd4', diagonal: true },
+  { start: 'b4', end: 'd2', diagonal: true },
+];
+
 export interface HeadlessState {
   pieces: cg.Pieces;
   orientation: cg.Color; // board orientation. white | black
   turnColor: cg.Color; // turn to play. white | black
   check?: cg.Key; // square currently in check "a2"
+  boardLines: cg.BoardLine[]; // predefined board lines
   lastMove?: cg.Key[]; // squares part of the last move ["c3"; "c4"]
   selected?: cg.Key; // square currently selected "a1"
   coordinates: boolean; // include coords attributes
@@ -110,8 +135,10 @@ export interface State extends HeadlessState {
 
 export function defaults(): HeadlessState {
   return {
-    pieces: fen.read(fen.initial),
+    // pieces: fen.read(fen.initial),
+    pieces: new Map(),
     orientation: 'white',
+    boardLines: BAGHCHAL_LINES,
     turnColor: 'white',
     coordinates: true,
     coordinatesOnSquares: false,

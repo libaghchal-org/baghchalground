@@ -1,5 +1,5 @@
 import { HeadlessState } from './state.js';
-import { pos2key, key2pos, opposite, distanceSq, allPos, computeSquareCenter } from './util.js';
+import { pos2key, key2pos, oppositeSide, distanceSq, allPos, computeSquareCenter } from './util.js';
 import { premove, queen, knight } from './premove.js';
 import * as cg from './types.js';
 
@@ -11,7 +11,7 @@ export function callUserFunction<T extends (...args: any[]) => void>(
 }
 
 export function toggleOrientation(state: HeadlessState): void {
-  state.orientation = opposite(state.orientation);
+  state.orientation = oppositeSide(state.orientation);
   state.animation.current = state.draggable.current = state.selected = undefined;
 }
 
@@ -124,7 +124,7 @@ export function baseNewPiece(state: HeadlessState, piece: cg.Piece, key: cg.Key,
   state.check = undefined;
   callUserFunction(state.events.change);
   state.movable.dests = undefined;
-  state.turnColor = opposite(state.turnColor);
+  state.turnColor = oppositeSide(state.turnColor);
   return true;
 }
 
@@ -132,7 +132,7 @@ function baseUserMove(state: HeadlessState, orig: cg.Key, dest: cg.Key): cg.Piec
   const result = baseMove(state, orig, dest);
   if (result) {
     state.movable.dests = undefined;
-    state.turnColor = opposite(state.turnColor);
+    state.turnColor = oppositeSide(state.turnColor);
     state.animation.current = undefined;
   }
   return result;
