@@ -2,22 +2,19 @@ import * as cg from './types.js';
 
 export const invRanks: readonly cg.Rank[] = [...cg.ranks].reverse();
 
+// Generate all valid board positions
 export const allKeys: readonly cg.Key[] = Array.prototype.concat(
   ...cg.files.map(c => cg.ranks.map(r => c + r)),
 );
 
-export const pos2key = (pos: cg.Pos): cg.Key => allKeys[8 * pos[0] + pos[1]];
+// Convert between position formats
+export const pos2key = (pos: cg.NumberPair): cg.Key => allKeys[5 * pos[0] + pos[1]];
 
-export const key2pos = (k: cg.Key): cg.Pos => [k.charCodeAt(0) - 97, k.charCodeAt(1) - 49];
+export const key2pos = (k: cg.Key): cg.NumberPair => [k.charCodeAt(0) - 97, k.charCodeAt(1) - 49];
 
-export const uciToMove = (uci: string | undefined): cg.Key[] | undefined => {
-  if (!uci) return undefined;
-  if (uci[1] === '@') return [uci.slice(2, 4) as cg.Key];
-  return [uci.slice(0, 2), uci.slice(2, 4)] as cg.Key[];
-};
+export const allPos: readonly cg.NumberPair[] = allKeys.map(key2pos);
 
-export const allPos: readonly cg.Pos[] = allKeys.map(key2pos);
-
+// Memoization utility
 export function memo<A>(f: () => A): cg.Memo<A> {
   let v: A | undefined;
   const ret = (): A => {
@@ -30,6 +27,7 @@ export function memo<A>(f: () => A): cg.Memo<A> {
   return ret;
 }
 
+// Performance timer
 export const timer = (): cg.Timer => {
   let startAt: number | undefined;
   return {
@@ -48,24 +46,25 @@ export const timer = (): cg.Timer => {
   };
 };
 
-export const opposite = (c: cg.Color): cg.Color => (c === 'white' ? 'black' : 'white');
+// Get opposite side
+export const oppositeSide = (s: cg.Side): cg.Side => (s === 'tiger' ? 'goat' : 'tiger');
 
-export const distanceSq = (pos1: cg.Pos, pos2: cg.Pos): number => {
+// Calculate square distance between two positions
+export const distanceSq = (pos1: cg.NumberPair, pos2: cg.NumberPair): number => {
   const dx = pos1[0] - pos2[0],
     dy = pos1[1] - pos2[1];
   return dx * dx + dy * dy;
 };
 
-export const samePiece = (p1: cg.Piece, p2: cg.Piece): boolean =>
-  p1.role === p2.role && p1.color === p2.color;
+// Compare two pieces
+export const samePiece = (p1: cg.Piece, p2: cg.Piece): boolean => p1.side === p2.side;
 
+// Position to pixel translation
 export const posToTranslate =
-  (bounds: DOMRectReadOnly): ((pos: cg.Pos, asWhite: boolean) => cg.NumberPair) =>
-  (pos, asWhite) => [
-    ((asWhite ? pos[0] : 7 - pos[0]) * bounds.width) / 8,
-    ((asWhite ? 7 - pos[1] : pos[1]) * bounds.height) / 8,
-  ];
+  (bounds: DOMRectReadOnly) =>
+  (pos: cg.NumberPair): cg.NumberPair => [(pos[0] * bounds.width) / 4, ((4 - pos[1]) * bounds.height) / 4];
 
+// DOM manipulation utilities
 export const translate = (el: HTMLElement, pos: cg.NumberPair): void => {
   el.style.transform = `translate(${pos[0]}px,${pos[1]}px)`;
 };
@@ -78,28 +77,23 @@ export const setVisible = (el: HTMLElement, v: boolean): void => {
   el.style.visibility = v ? 'visible' : 'hidden';
 };
 
+// Event handling
 export const eventPosition = (e: cg.MouchEvent): cg.NumberPair | undefined => {
   if (e.clientX || e.clientX === 0) return [e.clientX, e.clientY!];
   if (e.targetTouches?.[0]) return [e.targetTouches[0].clientX, e.targetTouches[0].clientY];
-  return; // touchend has no position!
+  return undefined;
 };
 
 export const isRightButton = (e: cg.MouchEvent): boolean => e.button === 2;
 
+// DOM element creation
 export const createEl = (tagName: string, className?: string): HTMLElement => {
   const el = document.createElement(tagName);
   if (className) el.className = className;
   return el;
 };
 
-export function computeSquareCenter(key: cg.Key, asWhite: boolean, bounds: DOMRectReadOnly): cg.NumberPair {
+export function computeSquareCenter(key: cg.Key, bounds: DOMRectReadOnly): cg.NumberPair {
   const pos = key2pos(key);
-  if (!asWhite) {
-    pos[0] = 7 - pos[0];
-    pos[1] = 7 - pos[1];
-  }
-  return [
-    bounds.left + (bounds.width * pos[0]) / 8 + bounds.width / 16,
-    bounds.top + (bounds.height * (7 - pos[1])) / 8 + bounds.height / 16,
-  ];
+  return [bounds.left + (bounds.width * pos[0]) / 4, bounds.top + (bounds.height * (4 - pos[1])) / 4];
 }
