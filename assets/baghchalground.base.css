@@ -24,6 +24,7 @@ cg-board {
   user-select: none;
   line-height: 0;
   background-size: cover;
+  background-color: white;
 }
 
 .cg-wrap.manipulable cg-board {

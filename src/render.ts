@@ -19,11 +19,8 @@ export function render(s: State): void {
     anims: AnimVectors = curAnim ? curAnim.plan.anims : new Map(),
     fadings: AnimFadings = curAnim ? curAnim.plan.fadings : new Map(),
     curDrag: DragCurrent | undefined = s.draggable.current,
-    squares: cg.SquareClasses = computeSquareClasses(s),
     samePieces: Set<cg.Key> = new Set(),
-    sameSquares: Set<cg.Key> = new Set(),
-    movedPieces: Map<PieceName, cg.PieceNode[]> = new Map(),
-    movedSquares: Map<string, cg.SquareNode[]> = new Map(); // by class name
+    movedPieces: Map<PieceName, cg.PieceNode[]> = new Map();
   let k: cg.Key,
     el: cg.PieceNode | cg.SquareNode | undefined,
     pieceAtKey: cg.Piece | undefined,
@@ -89,34 +86,11 @@ export function render(s: State): void {
       else {
         appendValue(movedPieces, elPieceName, el);
       }
-    } else if (isSquareNode(el)) {
-      const cn = el.className;
-      if (squares.get(k) === cn) sameSquares.add(k);
-      else appendValue(movedSquares, cn, el);
     }
     el = el.nextSibling as cg.PieceNode | cg.SquareNode | undefined;
   }
 
   renderBoardLines(s);
-
-  // walk over all squares in current set, apply dom changes to moved squares
-  // or append new squares
-  for (const [sk, className] of squares) {
-    if (!sameSquares.has(sk)) {
-      sMvdset = movedSquares.get(className);
-      sMvd = sMvdset && sMvdset.pop();
-      const translation = posToTranslate(key2pos(sk), asWhite);
-      if (sMvd) {
-        sMvd.cgKey = sk;
-        translate(sMvd, translation);
-      } else {
-        const squareNode = createEl('square', className) as cg.SquareNode;
-        squareNode.cgKey = sk;
-        translate(squareNode, translation);
-        boardEl.insertBefore(squareNode, boardEl.firstChild);
-      }
-    }
-  }
 
   // walk over all pieces in current set, apply dom changes to moved pieces
   // or append new pieces
