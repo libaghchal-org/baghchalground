@@ -1,12 +1,12 @@
 {
-  "name": "chessground",
+  "name": "baghchalground",
   "version": "9.2.0",
-  "description": "lichess.org chess ui",
+  "description": "baghchal.org baghchal ui",
   "type": "module",
-  "main": "dist/chessground.js",
-  "types": "chessground.d.ts",
+  "main": "dist/baghchalground.js",
+  "types": "baghchalground.d.ts",
   "exports": {
-    ".": "./dist/chessground.js",
+    ".": "./dist/baghchalground.js",
     "./assets/*": "./assets/*",
     "./*": "./dist/*.js"
   },
@@ -31,7 +31,7 @@
     "lint": "eslint src/*.ts",
     "format": "prettier --write .",
     "check-format": "prettier --check .",
-    "bundle": "esbuild src/chessground.ts --bundle --format=esm --outfile=dist/chessground.min.js --minify",
+    "bundle": "esbuild src/baghchalground.ts --bundle --format=esm --outfile=dist/baghchalground.min.js --minify",
     "dist": "$npm_execpath run compile && $npm_execpath run bundle"
   },
   "files": [
@@ -41,20 +41,20 @@
     "/assets/*.css",
     "/src/*.ts"
   ],
-  "repository": "https://github.com/lichess-org/chessground",
+  "repository": "https://github.com/libaghchal-org/baghchalground",
   "keywords": [
-    "chess",
-    "lichess",
-    "lichess.org",
-    "chessboard",
+    "baghchal",
+    "libaghchal",
+    "baghchal.org",
+    "baghchalboard",
     "ui",
     "typescript"
   ],
-  "author": "Thibault Duplessis (https://github.com/ornicar)",
+  "author": "Ashish Acharya (https://github.com/code-geek)",
   "license": "GPL-3.0-or-later",
   "bugs": {
-    "url": "https://github.com/lichess-org/chessground/issues"
+    "url": "https://github.com/libaghchal-org/baghchalground/issues"
   },
-  "funding": "https://lichess.org/patron",
+  "funding": "https://baghchal.org/patron",
   "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
 }
