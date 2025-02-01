@@ -21,7 +21,7 @@ function renderLine(startKey: cg.Key, endKey: cg.Key, lineGroup: SVGElement): vo
     x2: endX,
     y2: endY,
     stroke: '#000000',
-    'stroke-width': '0.05',
+    'stroke-width': '0.03',
     'stroke-linecap': 'round',
   });
 
