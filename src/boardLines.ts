@@ -31,7 +31,7 @@ function renderLine(
     x2: endX,
     y2: endY,
     stroke: '#000000',
-    'stroke-width': isDiagonal ? '0.1' : '0.1',
+    'stroke-width': isDiagonal ? '0.05' : '0.05',
     'stroke-linecap': 'round',
   });
 
