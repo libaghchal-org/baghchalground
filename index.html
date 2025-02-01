@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Baghchalground Demo</title>
+
+    <link rel="stylesheet" type="text/css" href="assets/baghchalground.base.css" />
+    <link rel="stylesheet" type="text/css" href="assets/baghchalground.brown.css" />
+    <link rel="stylesheet" type="text/css" href="assets/baghchalground.cburnett.css" />
+    <style>
+      body {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      body > div {
+        margin: 10px;
+      }
+
+      .baghchalground {
+        width: 500px;
+        height: 500px;
+      }
+
+      cg-board {
+        background-color: #bfcfdd;
+      }
+    </style>
+
+    <script type="module">
+      import { Baghchalground } from './src/baghchalground.ts';
+
+      Baghchalground(document.getElementById('board-1'), {});
+    </script>
+  </head>
+  <body>
+    <div>
+      basic board, default config
+      <div class="baghchalground" id="board-1"></div>
+    </div>
+  </body>
+</html>
