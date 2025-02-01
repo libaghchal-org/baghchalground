@@ -1,26 +1,30 @@
-export type Color = (typeof colors)[number];
-export type Role = (typeof roles)[number];
+// Basic game elements
+export const sides = ['tiger', 'goat'] as const;
+export type Side = (typeof sides)[number];
+
+// Board coordinates
+export const files = ['a', 'b', 'c', 'd', 'e'] as const;
+export const ranks = ['1', '2', '3', '4', '5'] as const;
 export type File = (typeof files)[number];
 export type Rank = (typeof ranks)[number];
 export type Key = 'a0' | `${File}${Rank}`;
-export type FEN = string;
-export type Pos = [number, number];
+
+// Piece definitions
 export interface Piece {
-  role: Role;
-  color: Color;
-  promoted?: boolean;
+  side: Side;
 }
+
 export interface Drop {
-  role: Role;
   key: Key;
+  side: Side; // will always be 'goat' during placement
 }
+
 export type Pieces = Map<Key, Piece>;
 export type PiecesDiff = Map<Key, Piece | undefined>;
 
+// Position and movement
 export type KeyPair = [Key, Key];
-
 export type NumberPair = [number, number];
-
 export type NumberQuad = [number, number, number, number];
 
 export interface Rect {
@@ -30,8 +34,33 @@ export interface Rect {
   height: number;
 }
 
+export interface MovePath {
+  from: Key;
+  to: Key;
+  canCapture: boolean;
+  captureOver?: Key;
+}
+
+export type LegalPaths = Map<Key, MovePath[]>;
 export type Dests = Map<Key, Key[]>;
 
+// Game state
+export type GamePhase = 'placing' | 'moving';
+
+export interface GameState {
+  phase: GamePhase;
+  goatsPlaced: number;
+  goatsCaptured: number;
+  goatsToPlace: number;
+}
+
+export interface MoveMetadata {
+  captured?: Key;
+  wasJump?: boolean;
+  holdTime?: number;
+}
+
+// DOM Elements
 export interface Elements {
   board: HTMLElement;
   wrap: HTMLElement;
@@ -40,7 +69,9 @@ export interface Elements {
   svg?: SVGElement;
   customSvg?: SVGElement;
   autoPieces?: HTMLElement;
+  boardLines?: SVGElement;
 }
+
 export interface Dom {
   elements: Elements;
   bounds: Memo<DOMRectReadOnly>;
@@ -49,27 +80,14 @@ export interface Dom {
   unbind?: Unbind;
   destroyed?: boolean;
 }
-export interface Exploding {
-  stage: number;
-  keys: readonly Key[];
-}
 
-export interface MoveMetadata {
-  premove: boolean;
-  ctrlKey?: boolean;
-  holdTime?: number;
-  captured?: Piece;
-  predrop?: boolean;
-}
-export interface SetPremoveMetadata {
-  ctrlKey?: boolean;
-}
-
+// Event handling
 export type MouchEvent = Event & Partial<MouseEvent & TouchEvent>;
 
 export interface KeyedNode extends HTMLElement {
   cgKey: Key;
 }
+
 export interface PieceNode extends KeyedNode {
   tagName: 'PIECE';
   cgPiece: string;
@@ -78,14 +96,24 @@ export interface PieceNode extends KeyedNode {
   cgDragging?: boolean;
   cgScale?: number;
 }
-export interface SquareNode extends KeyedNode {
-  tagName: 'SQUARE';
+
+// Board structure
+export interface BoardLine {
+  start: Key;
+  end: Key;
+  diagonal: boolean;
 }
 
-export interface Memo<A> {
+export type ValidMoves = {
+  regular: MovePath[];
+  captures: MovePath[];
+};
+
+// Utility types
+export type Memo<A> = {
   (): A;
   clear: () => void;
-}
+};
 
 export interface Timer {
   start: () => void;
@@ -96,15 +124,8 @@ export interface Timer {
 export type Redraw = () => void;
 export type Unbind = () => void;
 export type Milliseconds = number;
-export type KHz = number;
 
-export const colors = ['white', 'black'] as const;
-export const roles = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'] as const;
-export const files = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as const;
-export const ranks = ['1', '2', '3', '4', '5', '6', '7', '8'] as const;
-
-export type RanksPosition = 'left' | 'right';
-
+// Game results and display
+export type GameResult = 'tigers-win' | 'goats-win' | null;
 export type BrushColor = 'green' | 'red' | 'blue' | 'yellow';
-
-export type SquareClasses = Map<Key, string>;
+export type IntersectionClasses = Map<Key, string>;
